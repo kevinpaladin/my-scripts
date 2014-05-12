@@ -17,8 +17,8 @@ do
     # echo ${DEST_DIR}/${DIR}.tar.gz
     # echo ${SRC_DIR}/${DIR}
 
-    tar xvpfz ${DEST_DIR}/${DIR}.tar.gz
-        -C ${SRC_DIR}/${DIR}
+    tar xvpfz ${DEST_DIR}/${DIR}.tar.gz\
+        -C ${SRC_DIR}/${DIR}\
         -g /var/log/snapshot/${DIR}.snar
 
 done
