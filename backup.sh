@@ -3,24 +3,32 @@
 # Shell script to do incremental backup
 
 # The date which determines what file to add in the incremental backup
-DATE=$1
-# echo $DATE
 
 SRC_DIR='/home/kevin/'
 DEST_DIR='/media/kevin/kevin-toshiba/backup/archive/'
 
-DIRS=('Audio' 'Data' 'Downloads' 'Installed' 'Pictures' 'Software' 'Websites' 'Backup' 'Desktop' 'Dropbox' 'Music' 'Public' 'Templates' 'Code' 'Documents' 'Semantic web' 'Videos')
-
-for DIR in ${DIRS[@]}
-do
+START_TIME=`date`
+START_TIME_SEC=`date +%s`
 
     # echo ${DEST_DIR}/${DIR}.tar.gz
     # echo ${SRC_DIR}/${DIR}
 
-    tar xvpfz ${DEST_DIR}/${DIR}.tar.gz\
-        -C ${SRC_DIR}/${DIR}\
-        -g /var/log/snapshot/${DIR}.snar
+    DATE=`date +%A_%d-%m-%Y_%H-%M-%S`
 
-done
+    # Invoking tar to start the backup
+    sudo tar cvpfz ${DEST_DIR}/Home_${DATE}.tar.gz\
+        -g /var/log/snapshot/Home.snar\
+        ${SRC_DIR}
 
-echo "Backup Process completed!"
+END_TIME=`date`
+END_TIME_SEC=`date +%s`
+
+diff=$(( $END_TIME_SEC - $START_TIME_SEC ))
+
+echo "
+Backup Process began at - $START_TIME
+Backup Process ended at - $END_TIME
+
+Total time taken was `echo $(( $diff / 360 ))` Hours `echo $(( $diff / 60 ))` Minutes `echo $(( $diff % 60 ))` Seconds
+"
+
