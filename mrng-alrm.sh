@@ -1,8 +1,11 @@
+echo $1
+echo $2
+
 # Wait until I fall asleep
-sleep $(( 20*60 ))
+sleep $(( 00*60 ))
 
 # Get the number of seconds to suspend for
-sec=$(( `date -d "May 5, 2014 06:20:00" +%s` - `date +%s` ))
+sec=$(( `date -d "May 10, 2014 06:00:00" +%s` - `date +%s` ))
 
 # Put the computer to sleep
 sudo rtcwake -s $sec -u -m mem
